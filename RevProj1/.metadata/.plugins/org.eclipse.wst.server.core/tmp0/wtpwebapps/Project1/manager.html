@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+      />
+      <style>
+          .col, td {
+              padding : 5px;
+          }
+      </style>
+    </head>
+    <body>
+        <div>
+            <form>
+                <input type="radio" name="reqs" value="1"> Get all requests
+                <input type="radio" name="reqs" value="2"> Get all unresolved requests
+                <input type="radio" name="reqs" value="3"> Get all resolved 
+                <button type="submit" id="load">Get Specified Requests</button>
+            </form>
+            <form>
+                <button type="submit" id="emp-load">Get All Employees</button>
+            </form>
+        </div>
+        <div>
+            <form>
+                <input type="number" name="reim-amount" id="reim-amount" /> Enter the amount you wish
+                to be reimbursed for. <br /> <input type="file" name="receipt" />
+                Submit receipt image <br />
+                <button type="button" name="req-submit" id="req-submit">Submit Request</button>
+            </form>
+        </div>
+        <div>
+
+        </div>
+        <div>
+            <form>
+                <button type="submit" id="view-info">View Employee Info</button>
+            </form>
+        </div>
+        <div>
+           <!-- <form method="POST" action="api/user">-->
+            <form>
+                <input type="text" id="first-name" name="first-name"> Change your first name.
+                <br/>
+                <input type="text" id="last-name" name="last-name"> Change your last name.
+                <br/>
+                <input type="text" id="address" name="address"> Change your address.
+                <br/>
+                <input type="radio" id="gender" name="gender" value="M"> Male
+                <input type="radio" id="gender" name="gender" value="F"> Female
+                <br/>
+                <button type="button" id="change-info"> Commit Changes </button>
+            </form>
+        </div>
+        <div>
+            <table id="user-table"></table>
+        </div>
+        <script type="text/javascript" src="assets/manager.js"></script>
+        <script type="text/javascript" src="assets/employee.js"></script>
+    </body>
+</html>

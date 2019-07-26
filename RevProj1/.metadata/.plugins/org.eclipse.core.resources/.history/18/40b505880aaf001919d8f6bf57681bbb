@@ -1,0 +1,184 @@
+package dbDAOImpl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import beans.User;
+import dao.UserDAO;
+import service.ConnectionFactory;
+
+public class UserDAOImpl implements UserDAO{
+	public User getUser(int user_id)
+	{
+		try(Connection conn = ConnectionFactory.getConnection())
+		{
+			String sql = "SELECT * FROM users " + "WHERE user_id = ?";
+			String[] primaryKeyValues = {"user_id"};
+			PreparedStatement stmt = conn.prepareStatement(sql, primaryKeyValues);
+			stmt.setInt(1, user_id);
+			
+			ResultSet results = stmt.executeQuery();
+			User u = null;
+			while(results.next())
+			{
+				int uid = results.getInt("user_id");
+				String username = results.getString("username");
+				String password = results.getString("password");
+				String firstName = results.getString("first_name");
+				String lastName = results.getString("last_name");
+				String address = results.getString("address");
+				String gender = results.getString("gender");
+				String emptype = results.getString("empType");
+				u = new User(uid, username, password, firstName, lastName, gender, address, emptype);
+			}
+			return u;
+		}catch (SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public User createUser(User u)
+	{
+		try(Connection conn = ConnectionFactory.getConnection()){
+			String sql = "INSERT INTO Users(username, password, first_name, last_name, gender, address, empType) "
+						+ "VALUES(?, ?, ?, ?, ?, ?, ?)";
+			String[] primaryKeyValues = {"user_id"};
+			PreparedStatement stmt = conn.prepareStatement(sql, primaryKeyValues);
+			stmt.setString(1, u.getUsername());
+			stmt.setString(2, u.getPassword());
+			stmt.setString(3, u.getFirstName());
+			stmt.setString(4, u.getLastName());
+			stmt.setString(5, u.getGender());
+			stmt.setString(6, u.getAddress());
+			stmt.setString(7, u.getEmpType());
+			
+			int rowsAffected = stmt.executeUpdate();
+			System.out.println("Inserted " + rowsAffected + " rows.");
+			
+			ResultSet keys = stmt.getGeneratedKeys();
+			while(keys.next())
+			{
+				int userID = keys.getInt(1);
+				u.setUID(userID);
+			}
+			return u;
+		}catch (SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public List<User> getAllUsers()
+	{
+		try(Connection conn = ConnectionFactory.getConnection())
+		{
+			String sql = "SELECT * FROM users";
+			String[] primaryKeyValues = {"user_id"};
+			PreparedStatement stmt = conn.prepareStatement(sql, primaryKeyValues);
+			
+			ResultSet results = stmt.executeQuery();
+			List<User> users = new ArrayList<User>();
+			while(results.next())
+			{
+				int uid = results.getInt("user_id");
+				String username = results.getString("username");
+				String password = results.getString("password");
+				String firstName = results.getString("first_name");
+				String lastName = results.getString("last_name");
+				String address = results.getString("address");
+				String gender = results.getString("sex");
+				String emptype = results.getString("empType");
+				users.add(new User(uid, username, password, firstName, lastName, gender, address, emptype));
+			}
+			return users;
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public List<User> getAllUsersByType(String empType)
+	{
+		try(Connection conn = ConnectionFactory.getConnection())
+		{
+			String sql = "SELECT * FROM users " + "WHERE user_id = ? ";
+			String[] primaryKeyValues = {"user_id"};
+			PreparedStatement stmt = conn.prepareStatement(sql, primaryKeyValues);
+			stmt.setString(1, empType);
+			ResultSet results = stmt.executeQuery();
+			List<User> typeList = new ArrayList<User>();
+			while(results.next())
+			{
+				int uid = results.getInt("user_id");
+				String username = results.getString("username");
+				String password = results.getString("password");
+				String firstName = results.getString("first_name");
+				String lastName = results.getString("last_name");
+				String address = results.getString("address");
+				String gender = results.getString("gender");
+				String emptype = results.getString("empType");
+				typeList.add(new User(uid, username, password, firstName, lastName, gender, address, emptype));
+			}
+			return typeList;
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public User getUserByUsername(String useName)
+	{
+		try(Connection conn = ConnectionFactory.getConnection())
+		{
+			String sql = "SELECT * FROM users " + "WHERE username = ?";
+			String[] primaryKeyValues = {"user_id"};
+			PreparedStatement stmt = conn.prepareStatement(sql, primaryKeyValues);
+			stmt.setString(1, useName);
+			
+			ResultSet results = stmt.executeQuery();
+			User u = null;
+			while(results.next())
+			{
+				System.out.println("user found");
+				int uid = results.getInt("user_id");
+				String username = results.getString("username");
+				String password = results.getString("password");
+				String firstName = results.getString("first_name");
+				String lastName = results.getString("last_name");
+				String address = results.getString("address");
+				String gender = results.getString("sex");
+				String emptype = results.getString("empType");
+				u = new User(uid, username, password, firstName, lastName, gender, address, emptype);
+			}
+			return u;
+		}catch (SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+	}
+	public void updateUserInfo(User u)
+	{
+		try(Connection conn = ConnectionFactory.getConnection())
+		{
+			String sql = "UPDATE users " + "SET first_name = ?, last_name = ?, sex = ?, address = ? " + "WHERE user_id = ?";
+			String[] primaryKeyValues = {"user_id"};
+			PreparedStatement stmt = conn.prepareStatement(sql, primaryKeyValues);
+			stmt.setString(1, u.getFirstName());
+			stmt.setString(2, u.getLastName());
+			stmt.setString(3, u.getGender());
+			stmt.setString(4, u.getAddress());
+			stmt.setInt(5, u.getUID());
+			int rowsAffected = stmt.executeUpdate();
+			System.out.println("Rows affected: " + rowsAffected);
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+}

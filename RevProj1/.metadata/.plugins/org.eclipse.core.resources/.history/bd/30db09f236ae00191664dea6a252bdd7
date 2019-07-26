@@ -1,0 +1,37 @@
+package servlets;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import dao.UserDAO;
+import dbDAOImpl.UserDAOImpl;
+public class UserInfoServlet extends HttpServlet{
+
+	private UserDAO user = new UserDAOImpl();
+	@Override
+	public void init() throws ServletException
+	{
+		
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException
+	{
+		
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException
+	{
+		String fName = request.getParameter("first-name");
+		String lName = request.getParameter("last-name");
+		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
+		
+		response.setStatus(201);
+	}
+}

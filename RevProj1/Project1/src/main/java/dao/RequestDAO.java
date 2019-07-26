@@ -1,0 +1,14 @@
+package dao;
+
+import beans.Request;
+import beans.User;
+import java.util.List;
+
+public interface RequestDAO {
+	public Request createReimbursement(Request reim);
+	public List<Request> getAllRequestsByUser(User u);
+	public Request getRequest(int reim_id);
+	public List<Request> getAllUnresolvedRequests();
+	public List<Request> getAllResolvedRequests();
+	public List<Request> getAllRequests();
+}

@@ -1,0 +1,59 @@
+package servlets;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import beans.User;
+import dao.UserDAO;
+import dbDAOImpl.UserDAOImpl;
+
+public class UserInfoServlet extends HttpServlet {
+
+	private UserDAO user = new UserDAOImpl();
+
+	@Override
+	public void init() throws ServletException {
+
+	}
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, JsonProcessingException, IOException {
+		List<User> userList = user.getAllUsers();
+		ObjectMapper mapper = new ObjectMapper();
+		response.getWriter().print(mapper.writeValueAsString(userList));
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+
+		System.out.println(request);
+		String uid = request.getParameter("user_id");
+		String uName = request.getParameter("username");
+		String fName = request.getParameter("firstName");
+		String lName = request.getParameter("lastName");
+		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
+		User u = user.getUserByUsername("LeeJenk");
+		System.out.println(uName);
+		System.out.println(fName);
+		System.out.println(u.getUsername());
+
+		u.setFirstName(fName);
+		u.setLastName(lName);
+		u.setGender(gender);
+		u.setAddress(address);
+		user.updateUserInfo(u);
+		response.setStatus(201);
+	}
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <link
+        rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+        crossorigin="anonymous"
+      />
+      <style>
+          .col, td {
+              padding : 5px;
+          }
+      </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+        <div class="col-sm-4">
+            <form> 
+                <button type="submit" id="load">Get All Requests</button>
+            </form>
+            <br/>
+            <br/>
+            <form>
+                <button type="submit" id="emp-load">Get All Employees</button>
+            </form>
+        </div>
+        <div class="col-sm-4">
+            <form>
+                <input type="number" name="reim-amount" id="reim-amount" /> Enter the amount you wish
+                to be reimbursed for. <br /> 
+                <button type="button" name="req-submit" id="req-submit">Submit Request</button>
+            </form>
+        </div>
+        <div>
+
+        </div>
+        <div>
+        </div>
+        <div class="col-sm-4">
+           <!-- <form method="POST" action="api/user">-->
+            <form>
+                <input type="text" id="first-name" name="first-name"> Change your first name.
+                <br/>
+                <input type="text" id="last-name" name="last-name"> Change your last name.
+                <br/>
+                <input type="text" id="address" name="address"> Change your address.
+                <br/>
+                <input type="radio" id="gender" name="gender" value="M"> Male
+                <input type="radio" id="gender" name="gender" value="F"> Female
+                <br/>
+                <button type="button" id="change-info"> Commit Changes </button>
+            </form>
+        </div>
+        </div>
+        </div>
+        <div>
+            <table id="user-table"></table>
+        </div>
+        <script type="text/javascript" src="assets/manager.js"></script>
+        <script type="text/javascript" src="assets/employee.js"></script>
+    </body>
+</html>

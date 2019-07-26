@@ -1,0 +1,45 @@
+package servlets;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+
+import javax.servlet.http.HttpServlet;
+
+import javax.servlet.http.HttpServletRequest;
+
+import javax.servlet.http.HttpServletResponse;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import beans.User;
+import dao.UserDAO;
+import dbDAOImpl.UserDAOImpl;
+public class UserInfoServlet extends HttpServlet{
+
+	private UserDAO user = new UserDAOImpl();
+	@Override
+	public void init() throws ServletException
+	{
+		
+	}
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, JsonProcessingException, IOException
+	{
+		List<User> userList = user.getAllUsers();
+		ObjectMapper mapper = new ObjectMapper();
+		response.getWriter().print(mapper.writeValueAsString(userList));
+		
+	}
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException
+	{
+		String fName = request.getParameter("first-name");
+		String lName = request.getParameter("last-name");
+		String gender = request.getParameter("gender");
+		String address = request.getParameter("address");
+		
+		response.setStatus(201);
+	}
+}

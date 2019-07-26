@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <link
+
+        rel="stylesheet"
+  
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+  
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+  
+        crossorigin="anonymous"
+  
+      />
+    </head>
+    <body>
+        <div>
+        <form method="POST">
+            <input type="number" name="reim-amount"/> Enter the amount you wish to be reimbursed for.
+            <br/>
+            <input type="file" name="receipt"/> Submit receipt image
+            <br/>
+            <button type="button" name="req-submit">Submit Request</button> 
+        </form>
+        </div>
+        <br/>
+        <div>
+        <form method="GET">
+            <button type="submit" name="view-info">View Information</button>
+            <br/>
+            <button type="submit" name="change-info">Change Information</button>
+        </form>
+        </div>
+    </body>
+</html>
